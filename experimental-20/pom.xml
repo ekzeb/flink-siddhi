@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>flink-siddhi-experimental</artifactId>
+    <artifactId>flink-siddhi-experimental-20</artifactId>
 
     <dependencies>
         <dependency>
@@ -55,16 +55,16 @@
 
     <profiles>
         <profile>
-            <id>kafka-10</id>
+            <id>kafka-2.0</id>
             <activation>
                 <property>
-                    <name>kafka-10</name>
+                    <name>kafka-2.0</name>
                 </property>
             </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.flink</groupId>
-                    <artifactId>flink-connector-kafka-0.10_${scala.binary.version}</artifactId>
+                    <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>
                     <version>${flink.version}</version>
                 </dependency>
             </dependencies>
@@ -88,7 +88,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>src/main/scala</source>
+                                <source>src/main/scala_${scala.binary.version}</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -101,7 +101,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>src/test/scala</source>
+                                <source>src/test/scala_${scala.binary.version}</source>
                             </sources>
                         </configuration>
                     </execution>

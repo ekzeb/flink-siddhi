@@ -6,7 +6,7 @@ flink-siddhi
 
 > A light-weight library to run [Siddhi CEP](https://github.com/wso2/siddhi) within [Apache Flink](https://github.com/apache/flink) streaming application.
 
-__Version:`0.1.3-SNAPSHOT`__
+__Version:`0.1.7-SNAPSHOT`__
 
 ## About
 
@@ -21,14 +21,38 @@ This project is mainly to provide a light-weight library to easily run Siddhi CE
 
 * Java (Version: `1.8`)
 * Apache Maven
-* Apache Flink (Version: `1.3.2`)
+* Apache Flink (Version: `1.7.0_2.11, 1.7.0_2.12`) via -Dscala-2.11 | -Dscala-2.12
+* Apache Kafka (Version: `0.10, 2.0`) via -Dkafka-10 | -Dkafka-2.0
 
 ### Clone
 	git clone git@github.com:haoch/flink-siddhi.git
 
 ### Building
+Lib only:
+- scala 2.12
 
-   	mvn clean install -DskipTests
+  `mvn clean install -Dscala2.12 -DskipTests` 
+- scala 2.11  
+
+  `mvn clean install -Dscala2.11 -DskipTests` 
+  
+With examples:
+- scala 2.12 kafka 2.0.1
+
+  `mvn clean install -Dscala2.12 -Dkafka-2.0 -DskipTests` 
+  
+  or kafka 0.10
+  
+  `mvn clean install -Dscala2.12 -Dkafka-10 -DskipTests`
+- scala 2.11  
+
+  `mvn clean install -Dscala2.11 -Dkafka-2.0 -DskipTests` 
+  
+  or kafka 0.10
+  
+  `mvn clean install -Dscala2.11 -Dkafka-10 -DskipTests`
+  
+
    
 ### Testing
 
@@ -41,8 +65,8 @@ This project is mainly to provide a light-weight library to easily run Siddhi CE
         <dependencies>
                 <dependency>
                         <groupId>com.github.haoch</groupId>
-                        <artifactId>flink-siddhi_2.11</artifactId>
-                        <version>0.1.3-SNAPSHOT</version>
+                        <artifactId>flink-siddhi</artifactId>
+                        <version>0.1.7-SNAPSHOT</version>
                 </dependency>
         </dependencies>
         
