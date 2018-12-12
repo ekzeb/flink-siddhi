@@ -28,4 +28,4 @@ out/
 /docs/Gemfile.lock
 /docs/.bundle
 /docs/.rubydeps
-/experimental-010/src/main/scala/com/github/haoch/experimental/CEPPipeline.scala
+/experimental-kafka010/src/main/scala/com/github/haoch/experimental/CEPPipeline.scala
