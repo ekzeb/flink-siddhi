@@ -25,7 +25,7 @@ This project is mainly to provide a light-weight library to easily run Siddhi CE
 * Apache Kafka (Version: `0.10, 2.0`) via -Dkafka-10 | -Dkafka-2.0
 
 ### Clone
-	git clone git@github.com:haoch/flink-siddhi.git
+	git clone git@github.com:ekzeb/flink-siddhi.git
 
 ### Building
 Lib only:
