@@ -96,7 +96,7 @@ Lib only:
 * Apache Flink: http://flink.apache.org/
 
 ## Support and Contact
-* Issues: https://github.com/haoch/flink-siddhi/issues
+* Issues: https://github.com/ekzeb/flink-siddhi/issues
 * Documents: https://github.com/haoch/flink-siddhi/wiki
 
 ## Contributors
