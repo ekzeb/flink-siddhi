@@ -13,24 +13,21 @@ resolvers in ThisBuild ++= Seq(
   "WSO2-Pub" at "http://maven.wso2.org/nexus/content/groups/wso2-public/"
 )
 
-//lazy val flinkVersion = setting
-
 lazy val root = project.in(file(".")).settings(
-  name := "flink-siddhi",
   
+  name := "flink-siddhi",  
   testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a")),
   libraryDependencies ++= {
 
     val siddhiV = "4.2.40"
-    val flinkV = "1.7.0"
-
+    
     Seq(
       "org.wso2.siddhi" % "siddhi-core" % siddhiV,
       "org.wso2.siddhi" % "siddhi-query-api" % siddhiV,
-      "org.apache.flink" %% "flink-streaming-java" % flinkV % "provided",
-      "org.apache.flink" %% "flink-scala" % flinkV,
-      "org.apache.flink" %% "flink-runtime" % flinkV % Test classifier "tests",
-      "org.apache.flink" %% "flink-test-utils" % flinkV % Test,
+      "org.apache.flink" %% "flink-streaming-java" % Common.flinkV % "provided",
+      "org.apache.flink" %% "flink-scala" % Common.flinkV,
+      "org.apache.flink" %% "flink-runtime" % Common.flinkV % Test classifier "tests",
+      "org.apache.flink" %% "flink-test-utils" % Common.flinkV % Test,
       "junit" % "junit" % "4.4" % Test,
       "com.novocode" % "junit-interface" % "0.11" % Test exclude("junit", "junit-dep")
 

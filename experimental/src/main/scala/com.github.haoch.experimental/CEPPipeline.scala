@@ -1,23 +1,40 @@
 package com.github.haoch.experimental
 
+import java.util
+
 import org.apache.flink.api.common.functions.MapFunction
 import org.apache.flink.api.common.restartstrategy.RestartStrategies
 import org.apache.flink.api.common.typeinfo.{BasicTypeInfo, TypeInformation}
-import org.apache.flink.api.java.typeutils.RowTypeInfo
 import org.apache.flink.api.java.utils.ParameterTool
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
-import org.apache.flink.streaming.api.scala.{DataStream ⇒ ScalaStream}
-import org.apache.flink.streaming.connectors.kafka.{FlinkKafkaConsumerBase, FlinkKafkaProducerBase}
-import org.apache.flink.streaming.siddhi.SiddhiCEP
-import org.apache.flink.streaming.siddhi.control.{ControlEvent, ControlEventSchema}
-import java.util
-
-import org.apache.flink.api.common.serialization.SimpleStringSchema
-import org.apache.flink.formats.json.JsonRowDeserializationSchema
 import org.apache.flink.streaming.api.functions.sink.SinkFunction
 import org.apache.flink.streaming.api.functions.source.SourceFunction
+import org.apache.flink.streaming.siddhi.SiddhiCEP
+import org.apache.flink.streaming.siddhi.control.ControlEvent
 
 object CEPPipeline {
+
+  def parseParams(args:Array[String]): ParameterTool = {
+    // parse input arguments
+    val params = ParameterTool.fromArgs(args)
+
+    if (params.getNumberOfParameters < 4) {
+      throw new IllegalArgumentException("Missing parameters!\n"
+        + "Usage: Kafka --input-topic <topic> --control-topic <topic> --output-topic <topic> "
+        + "--bootstrap.servers <kafka brokers> "
+        + "--zookeeper.connect <zk quorum> --group.id <some id> ")
+    }
+    params
+  }
+
+
+  val dataSchemaFields: Array[String] = Array("name", "value", "timestamp", "host")
+  val dataSchemaTypes: Array[TypeInformation[_]] = Array(
+    BasicTypeInfo.STRING_TYPE_INFO,
+    BasicTypeInfo.DOUBLE_TYPE_INFO,
+    BasicTypeInfo.LONG_TYPE_INFO,
+    BasicTypeInfo.STRING_TYPE_INFO
+  )
 
   def pipeline[OUT](
     params: ParameterTool,
