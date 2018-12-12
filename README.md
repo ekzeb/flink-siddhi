@@ -20,9 +20,8 @@ This project is mainly to provide a light-weight library to easily run Siddhi CE
 ## Prerequisites
 
 * Java (Version: `1.8`)
-* Apache Maven
-* Apache Flink (Version: `1.7.0_2.11, 1.7.0_2.12`) via -Dscala-2.11 | -Dscala-2.12
-* Apache Kafka (Version: `0.10, 2.0`) via -Dkafka-10 | -Dkafka-2.0
+* sbt 1.***
+
 
 ### Clone
 	git clone git@github.com:ekzeb/flink-siddhi.git
@@ -31,63 +30,32 @@ This project is mainly to provide a light-weight library to easily run Siddhi CE
 Lib only:
 - scala 2.12
 
-  `mvn clean install -Dscala2.12 -DskipTests` 
+  `sbt "++ 2.12.7" publishLocal` 
 - scala 2.11  
 
-  `mvn clean install -Dscala2.11 -DskipTests` 
+  `sbt "++ 2.11.12" publishLocal` 
   
-With examples:
-- scala 2.12 kafka 2.0.1
-
-  `mvn clean install -Dscala2.12 -Dkafka-2.0 -DskipTests` 
-  
-  or kafka 0.10
-  
-  `mvn clean install -Dscala2.12 -Dkafka-10 -DskipTests`
-- scala 2.11  
-
-  `mvn clean install -Dscala2.11 -Dkafka-2.0 -DskipTests` 
-  
-  or kafka 0.10
-  
-  `mvn clean install -Dscala2.11 -Dkafka-10 -DskipTests`
-  
-
-   
 ### Testing
 
-   	mvn clean test
+  `sbt clean test`
 
 ## Usage and API
 
-* Add `flink-siddhi` in maven dependency:
+* Add `flink-siddhi` in sbt dependency after `sbt publishLocal`:
 
-        <dependencies>
-                <dependency>
-                        <groupId>com.github.haoch</groupId>
-                        <artifactId>flink-siddhi</artifactId>
-                        <version>0.1.7-SNAPSHOT</version>
-                </dependency>
-        </dependencies>
-        
-        <repositories>
-                <repository>
-                        <id>bintray</id>
-                        <url>http://clojars.org/repo/</url>
-                </repository>
-        </repositories>
+  `libraryDependencies += "com.github.haock" %% "flink-siddhi" % "version"`  
  
 * Execute [`SiddhiQL`](https://docs.wso2.com/display/CEP300/Introduction+to+Siddhi+Query+Language) with `SiddhiCEP` API, for example:
 
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        SiddhiCEP cep = SiddhiCEP.getSiddhiEnvironment(env);
+        val env = StreamExecutionEnvironment.getExecutionEnvironment();
+        val cep = SiddhiCEP.getSiddhiEnvironment(env);
         
         cep.registerExtension("custom:plus",CustomPlusFunctionExtension.class);
         
         cep.registerStream("inputStream1", input1, "id", "name", "price","timestamp");
         cep.registerStream("inputStream2", input2, "id", "name", "price","timestamp");
         
-        DataStream<Tuple5<Integer,String,Integer,String,Double>> output = cep
+        val output = cep
              .from("inputStream1").union("inputStream2")
              .cql( 
              "from every s1 = inputStream1[id == 2] "
